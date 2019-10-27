@@ -42,6 +42,13 @@ app.use(passport.initialize());
 app.use(passport.session());
 //Connect-Flash
 app.use(flash());
+//Global Variables
+app.use((req, res, next) => {
+  res.locals.success_msg = req.flash("success_msg");
+  res.locals.error_msg = req.flash("error_msg");
+  res.locals.error = req.flash("error");
+  next();
+});
 //Routes
 app.use("/", indexPath);
 app.use("/users", require("./router/user"));
