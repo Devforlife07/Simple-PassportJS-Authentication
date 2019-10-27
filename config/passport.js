@@ -15,9 +15,25 @@ module.exports = function(passport) {
         User.findOne({ email: email })
           .then(user => {
             if (!user) return done(null, false, { message: "No User Found" });
+            //Match Password
+            bcrypt.compare(password, User.password, (err, isMatch) => {
+              if (err) throw err;
+              if (isMatch) {
+                return done(null, user);
+              } else
+                return done(null, false, { message: "Password Do Not Match" });
+            });
           })
           .catch(err => console.log(err));
       }
     )
   );
+  passport.serializeUser((user, done) => {
+    done(null, user.id);
+  });
+  passport.deserializeUser((id, done) => {
+    User.findById(id, (err, user) => {
+      done(err, user);
+    });
+  });
 };
