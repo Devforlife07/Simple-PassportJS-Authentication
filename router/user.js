@@ -54,21 +54,22 @@ router.post("/register", (req, res) => {
           password: password
         });
         //Hash The Password
-        bcrypt.genSalt(10, (err, salt) => {
-          bcrypt.hash(newUser.password, salt, (err, hash) => {
+        bcrypt.genSalt(10, function(err, salt) {
+          bcrypt.hash(newUser.password, salt, function(err, hash) {
             if (err) throw err;
             newUser.password = hash;
-          });}
-          newUser
-            .save()
-            .then(user => {
-              res.redirect("/users/login");
-            })
-            .catch(err => {
-              console.log(err);
-              res.redirect("/users/register");
-            });
-        );
+            // console.log(newUser.password);
+            newUser
+              .save()
+              .then(user => {
+                res.redirect("/users/login");
+              })
+              .catch(err => {
+                console.log(err);
+                res.redirect("/users/register");
+              });
+          });
+        });
       }
     });
   }
