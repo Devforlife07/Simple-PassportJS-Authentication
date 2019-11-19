@@ -19,6 +19,7 @@ module.exports = function(passport) {
             bcrypt.compare(password, user.password, (err, isMatch) => {
               if (err) console.log(err);
               if (isMatch) {
+                // req.flash("success_msg", "You Are Logged In");
                 return done(null, user);
               } else
                 return done(null, false, { message: "Password Do Not Match" });

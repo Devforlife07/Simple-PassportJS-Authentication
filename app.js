@@ -5,6 +5,7 @@ const session = require("express-session");
 let indexPath = require("./router/index");
 const mongoose = require("mongoose");
 const key = require("./config/key").mongoURI;
+const FileStore = require("session-file-store")(session);
 const passport = require("passport");
 const app = express();
 //Passport Config
@@ -32,6 +33,7 @@ app.use(
 //Express Session
 app.use(
   session({
+    store: new FileStore(),
     secret: "secret",
     resave: true,
     saveUninitialized: true
