@@ -30,6 +30,7 @@ app.use(
     extended: false
   })
 );
+app.use(express.json());
 //Express Session
 app.use(
   session({
