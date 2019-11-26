@@ -77,8 +77,8 @@ router.post("/register", (req, res) => {
 });
 router.post("/register/data", (req, res) => {
   if (req.body) {
-    res.send(req.body);
-  } else res.send("Error");
+    res.json(req.body);
+  } else res.json("Error");
 });
 //POST Login User
 router.post("/login", (req, res, next) => {

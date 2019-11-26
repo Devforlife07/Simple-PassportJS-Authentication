@@ -17,6 +17,11 @@ mongoose
     console.log("MongoDB Connected");
   })
   .catch(err => console.log(err));
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
+  res.header("Access-Control-Allow-Headers", "Content-Type");
+});
 app.engine(
   "handlebars",
   exphbs({
